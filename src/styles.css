@@ -1,0 +1,83 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  background-color: white;
+}
+.name {
+  font-family: "Raleway:wght@800", sans-serif;
+  /*text-align: center;*/
+  font-size: 2rem;
+  margin-bottom: 1%;
+  line-height: 5%;
+  font-weight: bold;
+}
+
+.detail {
+  font-family: "Raleway", sans-serif;
+  font-size: 1rem;
+  margin-left: 5%;
+  margin: 0%;
+  margin-top: 0%;
+  padding: 0%;
+  line-height: 5%;
+}
+
+.details {
+  font-family: "Raleway", sans-serif;
+  margin-left: 5%;
+  margin: 0%;
+  background-color: red;
+  width: 50%;
+
+  /*text-align: center;*/
+}
+.items {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.element {
+  margin-left: 15%;
+  margin-right: 15%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.input {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  background-color: white;
+  font-size: 50;
+}
+input {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: black;
+  width: 96%;
+  justify-content: center;
+  margin-left: 1.5%;
+  padding: 0.5rem;
+  font-size: 25px;
+  font-family: "Raleway", sans-serif;
+}
+.button {
+  background-color: white; /* Green */
+  border: none;
+  color: gray;
+  padding: 15px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 80px;
+  margin-top: 1%;
+  margin-left: 20%;
+  cursor: pointer;
+}
