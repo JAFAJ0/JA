@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 //import { WithContext as ReactTags } from "react-tag-input";
 
-const KeyCodes = {
-  comma: 188,
-  enter: [10, 13]
-};
-const delimiters = [...KeyCodes.enter, KeyCodes.comma];
-const StudentList = ({ items = [] }) => {
+const StudentList = ({
+  items = [],
+  tagArray,
+  setTag,
+  tags = [],
+  handleEnter
+}) => {
   const [list, setList] = React.useState(new Array(25).fill(true));
-  const [tagArray, setTagArray] = React.useState(new Array(25).fill([]));
-  const [tags, setTags] = useState(new Array(25).fill(""));
   function toggleList(id) {
     const newList = list.map((item, itemid) => {
       if (itemid === parseInt(id, 10) - 1) {
@@ -32,7 +31,7 @@ const StudentList = ({ items = [] }) => {
             ) / item.grades.length;
           const name =
             item.firstName.toUpperCase() + " " + item.lastName.toUpperCase();
-          items.tag = tagArray[item.id - 1];
+          //items.tag = tagArray[item.id - 1];
           return (
             <div className="total" key={item.id}>
               <img
@@ -67,27 +66,27 @@ const StudentList = ({ items = [] }) => {
                         );
                       })}
                 </div>
+                <div className="tag">
+                  {tagArray[item.id - 1].map((grade, i) => {
+                    return (
+                      <button className="button1" type="button" key={item.id}>
+                        {grade}
+                      </button>
+                    );
+                  })}
+                </div>
                 <div className="input">
                   <input
                     value={tags[item.id - 1]}
                     placeholder={"Add a tag"}
-                    //onChange={}
-                    //onKeyDown={(e) => handlekey(e, item.id - 1)}
+                    onChange={(e) => setTag(e.target.value, item.id)}
+                    onKeyPress={(e) => handleEnter(e.key, item.id)}
                     type="text"
                   />
                 </div>
               </div>
               <button
-                class="button"
-                style={{
-                  marginTop: "0.5%",
-                  marginRight: "5%",
-                  marginLeft: "15%",
-                  border: "none",
-                  width: 30,
-                  height: 40,
-                  color: "grey"
-                }}
+                className="button"
                 type="button"
                 key={item.id}
                 onClick={() => toggleList(item.id)}
