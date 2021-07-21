@@ -1,5 +1,5 @@
 # Hatchway_front_test
 Created with CodeSandbox
-Thus i didnt run on my local machine, While based on the dependencies, node should be useful.
+npm install;npm start is good for this, at least on my machine.
 IF cannot run, go copypaste in Codesandbox
 Part 5 finished
