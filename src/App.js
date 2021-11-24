@@ -2,14 +2,16 @@ import "./styles.css";
 import React, { useState, useEffect } from "react";
 import SearchBar from "./searchBar";
 import StudentList from "./studentList";
-function MyC() {
+export default function App() {
   const [input, setInput] = useState("");
   const [taginput, settagInput] = useState("");
   const [error, setError] = useState(null);
   const [items, setItems] = useState();
   const [fitems, setfItems] = useState();
-  const [tags, setTags] = React.useState(new Array(25).fill("")); //This one is used to record tag text
-  const [tagsA, setTagsA] = React.useState([...Array(25)].map((x) => [])); //This one is to record tags
+  const [tags, setTags] = React.useState(); //This one is used to record tag text
+  const [tagsArray, setTagsArray] = React.useState(
+    [...Array(25)].map((x) => [])
+  ); //This one is to record tags
   function handleChange(value, id) {
     const newtags = tags.map((tag, tagid) => {
       if (tagid === parseInt(id, 10) - 1) {
@@ -22,9 +24,9 @@ function MyC() {
   function handleEnter(value, id) {
     //if enter is pressed, clear input and creat new tags
     if (value === "Enter" && tags[parseInt(id, 10) - 1] !== "") {
-      const newtagsA = tagsA.map((tag, tagid) => {
+      const newtagsArray = tagsArray.map((tag, tagid) => {
         if (tagid === parseInt(id, 10) - 1) {
-          tagsA[tagid].push(tags[tagid]);
+          tagsArray[tagid].push(tags[tagid]);
         }
         return tag;
       });
@@ -34,14 +36,14 @@ function MyC() {
         }
         return tag1;
       });
-      setTagsA(newtagsA);
+      setTagsArray(newtagsArray);
       setTags(newtags);
     }
   }
   const updateNInput = async (input) => {
     const Nitems = items.map((item) => {
       //Attach tags to items
-      item.tag = tagsA[item.id - 1];
+      item.tag = tagsArray[item.id - 1];
       return item;
     });
     const Nfiltered = Nitems.filter((list) => {
@@ -66,7 +68,7 @@ function MyC() {
   const updateTInput = async (taginput) => {
     const Nitems = items.map((item) => {
       //Attach tags to items
-      item.tag = tagsA[item.id - 1];
+      item.tag = tagsArray[item.id - 1];
       return item;
     });
     const Nfiltered = Nitems.filter((list) => {
@@ -95,12 +97,16 @@ function MyC() {
         (result) => {
           setItems(result.students);
           setfItems(result.students);
+          setTags(new Array(Object.keys(result.students).length).fill(""));
+          setTagsArray(
+            [...Array(Object.keys(result.students).length)].map((x) => [])
+          );
         },
         (error) => {
           setError(error);
         }
       );
-  }, []);
+  }, [tagsArray]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -122,12 +128,9 @@ function MyC() {
           tags={tags}
           setTag={handleChange}
           handleEnter={handleEnter}
-          tagArray={tagsA}
+          tagArray={tagsArray}
         />
       </>
     );
   }
-}
-export default function App() {
-  return MyC();
 }
